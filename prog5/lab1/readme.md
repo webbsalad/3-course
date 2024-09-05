@@ -1,15 +1,15 @@
 # Суворов Роман ИВТ 2.1 
 ## прог5 ЛР1
 
-##### для начала создадим функцию которую будем вызывать в файле: [myremotemodule.py](../rootserver/myremotemodule.py) в папке rootserver
+##### для начала создадим функцию которую будем вызывать в файле: [myremotemodule.py](code/rootserver/myremotemodule.py) в папке rootserver
 
 ---
 
-#### создаем файл [activation_script.py](../activation_script.py)
+#### создаем файл [activation_script.py](code/activation_script.py)
 ---
 
 #### пробуем выполнить код без сервера:
-![](../ans/photos/image%20copy%202.png)
+![](photos/image%20copy%202.png)
 выводится ошибка
 
 ---
@@ -19,12 +19,12 @@
 ```text
 python3 -m http.server
 ```
-![](../ans/photos/image.png)
+![](photos/image.png)
 
 ---
 
 ### после повторного запуска получаем правильный вывод:
-![](../ans/photos/image%20copy%203.png)
+![](photos/image%20copy%203.png)
 
 ---
 
