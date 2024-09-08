@@ -12,6 +12,7 @@ _(TELEGRAM_BOT_API_TOKEN и OPENWEATHERMAP_API_KEY хранятся в файл�
 
 ![](photos/1.png)
 
+
 При нажатии на одну из кнопок формируется URL для запроса к API OpenWeatherMap:
 ```go
 url := fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s", cityName, apiKey)
@@ -79,4 +80,5 @@ response := fmt.Sprintf("%s:\nТемпература: %.2f°C\nОписание:
 ```
 
 После обработки данных сообщение с информацией о погоде отправляется пользователю в Telegram:
+
 ![](photos/2.png)
