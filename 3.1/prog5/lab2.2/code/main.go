@@ -1,17 +1,16 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"github.com/webbsalad/go-weather-bot/bot"
 	"github.com/webbsalad/go-weather-bot/config"
 )
 
 func main() {
-	cfg, err := config.LoadConfig()
-	if err != nil {
-		log.Fatal(err)
-	}
+	fmt.Println("https://t.me/gowea_bot")
+
+	cfg, _ := config.LoadConfig()
 
 	b := bot.NewBot(cfg.TelegramToken)
 	b.Start()
