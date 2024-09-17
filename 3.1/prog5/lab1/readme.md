@@ -3,7 +3,6 @@
 
 для начала создадим функцию которую будем вызывать в файле: [myremotemodule.py](code/rootserver/myremotemodule.py) в папке rootserver
 
-
 создаем файл [activation_script.py](code/activation_script.py)
 
 
