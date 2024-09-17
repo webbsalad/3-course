@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"github.com/webbsalad/go-weather-bot/bot"
 	"github.com/webbsalad/go-weather-bot/config"
+	"github.com/webbsalad/go-weather-bot/internal/bot"
 )
 
 func main() {

@@ -5,7 +5,7 @@ import (
 	"log"
 
 	tgbot "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"github.com/webbsalad/go-weather-bot/weather"
+	"github.com/webbsalad/go-weather-bot/pkg/weather"
 )
 
 type Bot struct {
