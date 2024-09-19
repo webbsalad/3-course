@@ -6,19 +6,19 @@ class TestMyGen(unittest.TestCase):
     def setUp(self):
         self.gen = my_gen()
 
-    def test_initial_send(self):
+    def test_initial_send1(self):
         result = self.gen.send(5)
         self.assertEqual(result, [0, 1, 1, 2, 3])
 
-    def test_initial_send(self):
+    def test_initial_send2(self):
         result = self.gen.send(10)
         self.assertEqual(result, [0, 1, 1, 2, 3, 5, 8, 13, 21, 34])
     
-    def test_initial_send(self):
+    def test_initial_send3(self):
         result = self.gen.send(0)
         self.assertEqual(result, [])
     
-    def test_initial_send(self):
+    def test_initial_send4(self):
         result = self.gen.send(100)
         self.assertEqual(result,[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 
                                 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418, 
