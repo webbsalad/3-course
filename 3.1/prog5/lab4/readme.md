@@ -18,7 +18,13 @@ OK
 ### _[класс](code/main2.py)_
 ### [тесты класса](code/test)
 ```bash
+> /bin/python3 /home/suvor/Projects/3-course/3.1/prog5/lab4/code/test2.py
+[0, 1, 2, 3, 5, 8, 1]
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
 
+OK
 ```
 
 вывод c тестами:
