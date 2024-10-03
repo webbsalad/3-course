@@ -22,7 +22,7 @@ result = fetcher.get_currencies(['R01035', 'R01335', 'R01700J'])
 ```
 
 Также реализована функция визуализации данных:
-![](3.1/prog5/lab5/images/image.png)
+![](images/image.png)
 
 (приближенное поле тенге):
-![](3.1/prog5/lab5/images/image-1.png)
+![](images/image-1.png)
