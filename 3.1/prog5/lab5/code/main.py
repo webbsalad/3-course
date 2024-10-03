@@ -48,7 +48,6 @@ class CurrencyFetcher(metaclass=SingletonMeta):
         ax.set_xlabel('Валюта')
         ax.set_ylabel('Курс (в рублях)')
         ax.set_title('Курсы валют')
-        plt.savefig('currencies.jpg')
         plt.show()
 
 
