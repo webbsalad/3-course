@@ -36,38 +36,38 @@
 Наиболее распространенным стандартом для ITSM является ITIL (Information Technology Infrastructure Library), который описывает детализированные процессы по управлению ИТ-услугами.
 
 ```mermaid
-graph TD
+graph TB
     A[IT-менеджмент] -->|Определение| B[Определение ИТ-менеджмента]
     A -->|Цели| C[Цели ИТ-менеджмента]
     A -->|Задачи| D[Задачи ИТ-менеджмента]
     A -->|Инфраструктура| E[ИТ-инфраструктура]
     A -->|ITSM| F[ITSM]
     
-    F --> G[Основные компоненты ITSM]
+    F --> G[Компоненты ITSM]
     F --> H[Процессы ITSM]
     F --> I[Инструменты ITSM]
     
-    G --> J[Управление инцидентами]
-    G --> K[Управление изменениями]
-    G --> L[Управление проблемами]
+    G --> J[Инциденты]
+    G --> K[Изменения]
+    G --> L[Проблемы]
     
-    H --> M[Управление службой поддержки]
-    H --> N[Управление качеством обслуживания]
+    H --> M[Служба поддержки]
+    H --> N[Качество обслуживания]
     H --> O[Управление активами]
     
-    I --> P[Системы мониторинга]
+    I --> P[Мониторинг]
     I --> Q[Платформы управления]
-    I --> R[Инструменты для автоматизации]
+    I --> R[Автоматизация]
     
     E --> S[Компоненты ИТ-инфраструктуры]
     S --> T[Сервера]
     S --> U[Сеть]
     S --> V[Хранение данных]
-    S --> W[Программное обеспечение]
+    S --> W[ПО]
 
-    classDef title fill:#D8BFD8,stroke:#fff,stroke-width:4px;
-    classDef box fill:#E6E6FA,stroke:#fff,stroke-width:2px;
-    classDef link fill:#D3D3D3,stroke:#333,stroke-width:2px;
+    classDef title fill:#D8BFD8,stroke:#000,stroke-width:4px;
+    classDef box fill:#E6E6FA,stroke:#000,stroke-width:2px;
+    classDef link fill:#D3D3D3,stroke:#000,stroke-width:2px;
     
     class A title;
     class B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W box;
