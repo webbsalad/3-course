@@ -1,0 +1,81 @@
+%% start of file `resume.tex'.
+\documentclass[11pt,a4paper,sans]{moderncv}
+
+% moderncv themes
+\moderncvstyle{classic}
+\moderncvcolor{blue}
+
+% adjust the page margins
+\usepackage[scale=0.75]{geometry}
+
+% personal data
+\name{Roman}{Suvorov}
+\title{Golang and Python Developer}
+\born{15 March 1990}
+\address{Nevsky Prospect, 28}{191186 St. Petersburg}{Russia}
+\phone[mobile]{+7~(921)~123~4567}
+\email{roman.suvorov@gmail.com}
+\homepage{www.romansuvorov.dev}
+\social[linkedin]{romansuvorov}
+\social[github]{rsuvorov}
+
+\photo[64pt][0.4pt]{picture}
+\quote{``Code is like humor. When you have to explain it, it’s bad.''}
+
+\begin{document}
+\makecvtitle
+
+\section{Education}
+\cventry{2010--2015}{Bachelor's in Information Technology}{Herzen State Pedagogical University}{St. Petersburg}{\textit{Graduated with honors}}{Specialization in software development and systems engineering.}
+
+\section{Master thesis}
+\cvitem{title}{\emph{Distributed Systems in Cloud Computing}}
+\cvitem{supervisors}{Dr. Alexei Ivanov}
+\cvitem{description}{Research on improving efficiency of distributed systems in cloud environments, focusing on scalability and fault tolerance.}
+
+\section{Experience}
+\subsection{Vocational}
+\cventry{2020--Present}{Senior Software Engineer}{Tech Solutions LLC}{St. Petersburg}{}
+{
+\begin{itemize}
+\item Led the development of microservices using Golang and Docker, improving system scalability by 30\%.
+\item Integrated RESTful APIs with third-party services, enhancing data processing speeds.
+\item Automated CI/CD pipelines with GitLab, reducing deployment times by 40\%.
+\end{itemize}}
+
+\cventry{2017--2020}{Software Developer}{InnovateX}{St. Petersburg}{}
+{
+\begin{itemize}
+\item Developed back-end services using Python and Flask, supporting high-volume data processing.
+\item Optimized database queries, resulting in 25\% faster response times.
+\item Participated in Agile development, collaborating across teams to deliver bi-weekly sprints.
+\end{itemize}}
+
+\cventry{2015--2017}{Junior Developer}{StartUp Factory}{St. Petersburg}{}
+{
+\begin{itemize}
+\item Assisted in building APIs and working with Golang for backend microservices.
+\item Designed unit and integration tests, improving code coverage by 20\%.
+\end{itemize}}
+
+\section{Languages}
+\cvitemwithcomment{Russian}{Native}{}
+\cvitemwithcomment{English}{Fluent}{Professional proficiency}
+\cvitemwithcomment{German}{Intermediate}{}
+
+\section{Computer skills}
+\cvdoubleitem{Languages}{Golang, Python, JavaScript}{DevOps}{Docker, Kubernetes, GitLab CI/CD}
+\cvdoubleitem{Frameworks}{Flask, Gin, React}{Cloud}{AWS, GCP, Azure}
+\cvdoubleitem{Databases}{PostgreSQL, MongoDB, Redis}{Version Control}{Git, GitLab, GitHub}
+
+\section{Skill matrix}
+\cvskillentry{Programming}{4}{Golang}{5 years}{Extensive experience with microservices architecture}
+\cvskillentry{}{5}{Python}{7 years}{Proficient in back-end development and data processing}
+\cvskillentry{DevOps}{4}{CI/CD Automation}{3 years}{Automated deployment processes in cloud environments}
+
+\section{Interests}
+\cvitem{Open-source projects}{Active contributor to various open-source projects on GitHub.}
+\cvitem{AI and Machine Learning}{Exploring the potential of AI in enhancing system performance.}
+\cvitem{Photography}{Amateur landscape photographer during free time.}
+
+\end{document}
