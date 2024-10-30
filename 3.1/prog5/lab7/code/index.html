@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Currency Observer</title>
+        <script>
+            const ws = new WebSocket("ws://localhost:8000/ws");
+            ws.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                console.log("Received data:", data);
+                document.getElementById("rates").innerHTML = JSON.stringify(data.rate_changes, null, 2);
+            };
+            ws.onopen = function() {
+                console.log("WebSocket connection established"); 
+            };
+            ws.onclose = function() {
+                console.log("WebSocket connection closed"); 
+            };
+        </script>
+        <style>
+            body { font-family: Arial, sans-serif; }
+            #rates { white-space: pre-wrap; }
+        </style>
+    </head>
+    <body>
+        <h1>Currency Rates</h1>
+        <div id="rates">Waiting for rates...</div>
+    </body>
+</html>
