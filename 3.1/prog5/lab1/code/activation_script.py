@@ -20,8 +20,6 @@ class URLFinder(PathEntryFinder):
 
 
 class URLLoader:
-    def create_module(self, target):
-        return None
 
     def exec_module(self, module):
         with urlopen(module.__spec__.origin) as page:
