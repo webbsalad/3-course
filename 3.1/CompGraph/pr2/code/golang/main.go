@@ -1,12 +1,17 @@
 package main
 
 import (
+	"bytes"
+	"embed"
 	"image/color"
 	"log"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/go-mp3"
+
+	"github.com/hajimehoshi/oto"
 )
 
 const (
@@ -19,6 +24,8 @@ var (
 	colorGreen  = color.RGBA{R: 0, G: 255, B: 0, A: 255}
 )
 
+var sounds embed.FS
+
 type Game struct {
 	shipX          float64
 	bullets        []bullet
@@ -29,6 +36,7 @@ type Game struct {
 	shootCooldown  time.Duration
 	alienSpawnTime time.Time
 	alienSpawnRate time.Duration
+	audioContext   *oto.Context
 }
 
 type bullet struct {
@@ -37,6 +45,32 @@ type bullet struct {
 
 type alien struct {
 	x, y float64
+}
+
+func (g *Game) playSound(fileName string) {
+	data, err := sounds.ReadFile(fileName)
+	if err != nil {
+		log.Printf("Error reading sound file: %v", err)
+		return
+	}
+
+	decoder, err := mp3.NewDecoder(bytes.NewReader(data))
+	if err != nil {
+		log.Printf("Error decoding mp3: %v", err)
+		return
+	}
+
+	player := g.audioContext.NewPlayer()
+	defer player.Close()
+
+	buf := make([]byte, 4096)
+	for {
+		n, err := decoder.Read(buf)
+		if err != nil {
+			break
+		}
+		player.Write(buf[:n])
+	}
 }
 
 func (g *Game) Update() error {
@@ -55,6 +89,7 @@ func (g *Game) Update() error {
 		if time.Since(g.lastShotTime) >= g.shootCooldown {
 			g.bullets = append(g.bullets, bullet{x: g.shipX + 10, y: screenHeight - 40})
 			g.lastShotTime = time.Now()
+			go g.playSound("static/sounds/shot.mp3")
 		}
 	}
 
@@ -75,10 +110,12 @@ func (g *Game) Update() error {
 
 		if g.aliens[i].y > screenHeight-60 && g.aliens[i].x >= g.shipX && g.aliens[i].x <= g.shipX+20 {
 			g.gameOver = true
+			go g.playSound("static/sounds/dead.mp3")
 		}
 
 		if g.aliens[i].y > screenHeight-20 {
 			g.gameOver = true
+			go g.playSound("static/sounds/dead.mp3")
 		}
 	}
 
@@ -144,14 +181,22 @@ func (g *Game) spawnAliens() {
 }
 
 func main() {
+	audioCtx, err := oto.NewContext(44100, 2, 2, 4096)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	game := &Game{
 		shipX:          screenWidth / 2,
 		alienDirX:      2,
 		shootCooldown:  500 * time.Millisecond,
 		alienSpawnRate: 5 * time.Second,
+		audioContext:   audioCtx,
 	}
 	game.spawnAliens()
 	game.alienSpawnTime = time.Now()
+
+	go game.playSound("static/sounds/start.mp3")
 
 	ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowTitle("Вторжение инопланетян")
