@@ -3,8 +3,12 @@ package main
 import (
 	"bytes"
 	"embed"
+	"encoding/json"
 	"image/color"
+	"io/ioutil"
 	"log"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -24,6 +28,7 @@ var (
 	colorGreen  = color.RGBA{R: 0, G: 255, B: 0, A: 255}
 )
 
+//go:embed static/sounds/*
 var sounds embed.FS
 
 type Game struct {
@@ -37,6 +42,9 @@ type Game struct {
 	alienSpawnTime time.Time
 	alienSpawnRate time.Duration
 	audioContext   *oto.Context
+	level          int
+	score          int
+	lives          int
 }
 
 type bullet struct {
@@ -47,16 +55,22 @@ type alien struct {
 	x, y float64
 }
 
+type gameData struct {
+	Level int `json:"level"`
+	Score int `json:"score"`
+	Lives int `json:"lives"`
+}
+
 func (g *Game) playSound(fileName string) {
 	data, err := sounds.ReadFile(fileName)
 	if err != nil {
-		log.Printf("Error reading sound file: %v", err)
+		log.Printf("Error reading sound: %v\n", err)
 		return
 	}
 
 	decoder, err := mp3.NewDecoder(bytes.NewReader(data))
 	if err != nil {
-		log.Printf("Error decoding mp3: %v", err)
+		log.Printf("Error decoding MP3: %v\n", err)
 		return
 	}
 
@@ -71,6 +85,56 @@ func (g *Game) playSound(fileName string) {
 		}
 		player.Write(buf[:n])
 	}
+}
+
+func (g *Game) saveGame() {
+	data := gameData{
+		Level: g.level,
+		Score: g.score,
+		Lives: g.lives,
+	}
+	file, err := os.Create("savegame.json")
+	if err != nil {
+		log.Printf("Error saving game: %v\n", err)
+		return
+	}
+	defer file.Close()
+
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		log.Printf("Error serializing game data: %v\n", err)
+		return
+	}
+
+	file.Write(jsonData)
+	log.Println("Game saved!")
+}
+
+func (g *Game) loadGame() {
+	file, err := os.Open("savegame.json")
+	if err != nil {
+		log.Printf("Error loading game: %v\n", err)
+		return
+	}
+	defer file.Close()
+
+	data, err := ioutil.ReadAll(file)
+	if err != nil {
+		log.Printf("Error reading game data: %v\n", err)
+		return
+	}
+
+	var loadedData gameData
+	err = json.Unmarshal(data, &loadedData)
+	if err != nil {
+		log.Printf("Error deserializing game data: %v\n", err)
+		return
+	}
+
+	g.level = loadedData.Level
+	g.score = loadedData.Score
+	g.lives = loadedData.Lives
+	log.Println("Game loaded!")
 }
 
 func (g *Game) Update() error {
@@ -91,6 +155,13 @@ func (g *Game) Update() error {
 			g.lastShotTime = time.Now()
 			go g.playSound("static/sounds/shot.mp3")
 		}
+	}
+
+	if ebiten.IsKeyPressed(ebiten.KeyS) {
+		g.saveGame()
+	}
+	if ebiten.IsKeyPressed(ebiten.KeyL) {
+		g.loadGame()
 	}
 
 	for i := 0; i < len(g.bullets); i++ {
@@ -133,6 +204,7 @@ func (g *Game) Update() error {
 				g.bullets[i].y >= g.aliens[j].y && g.bullets[i].y <= g.aliens[j].y+20 {
 				g.aliens = append(g.aliens[:j], g.aliens[j+1:]...)
 				hit = true
+				g.score += 10
 				break
 			}
 		}
@@ -140,6 +212,13 @@ func (g *Game) Update() error {
 			g.bullets = append(g.bullets[:i], g.bullets[i+1:]...)
 			i--
 		}
+	}
+
+	if len(g.aliens) == 0 {
+		g.level++
+		g.alienDirX *= 1.1
+		g.spawnAliens()
+		g.bullets = nil
 	}
 
 	if time.Since(g.alienSpawnTime) >= g.alienSpawnRate {
@@ -156,6 +235,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		return
 	}
 
+	ebitenutil.DebugPrint(screen, "Уровень: "+strconv.Itoa(g.level)+"\nОчки: "+strconv.Itoa(g.score)+"\nЖизни: "+strconv.Itoa(g.lives))
 	ebitenutil.DrawRect(screen, g.shipX, screenHeight-40, 20, 20, color.White)
 
 	for _, b := range g.bullets {
@@ -192,6 +272,9 @@ func main() {
 		shootCooldown:  500 * time.Millisecond,
 		alienSpawnRate: 5 * time.Second,
 		audioContext:   audioCtx,
+		level:          1,
+		score:          0,
+		lives:          3,
 	}
 	game.spawnAliens()
 	game.alienSpawnTime = time.Now()
