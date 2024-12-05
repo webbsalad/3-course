@@ -1,5 +1,9 @@
 # Авторы:
 - ###### developed by:
+	- ###### developers(программисты): 
+		- ###### developed with obsidian:
+			- ###### developed on **Arch Linux, Ubuntu**, ~windows~
+				- ###### streamed by vga:
 Суворов Роман, Гневнов Артем, Адаминко  **`С.С.`**
 
 ---
