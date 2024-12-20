@@ -1,4 +1,4 @@
-- Репозиторий с игрой [ССЫЛКА](https://github.com/webbsalad)
+- Репозиторий с игрой [ССЫЛКА](https://github.com/webbsalad/tetris)
 	
 - gdd: [ФАЙЛ](files/gdd.md)
 - sdd: [ФАЙЛ](files/sdd.md)
