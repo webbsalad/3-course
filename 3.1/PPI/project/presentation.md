@@ -1,12 +1,12 @@
 ---
-  transition: fade
-  theme: solarized
-  highlightTheme: github
-  progress: true
-  controls: true
-  backgroundTransition: fade
-  slideNumber: false
-  fontSize: 18px
+transition: fade
+theme: solarized
+highlightTheme: github
+progress: true
+controls: true
+backgroundTransition: fade
+slideNumber: false
+fontSize: 18px
 ---
 <section data-background-color="#E6E6FA">  
 
