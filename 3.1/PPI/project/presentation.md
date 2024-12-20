@@ -5,16 +5,30 @@ highlightTheme: github
 progress: true
 controls: true
 backgroundTransition: fade
-slideNumber: false
+slideNumber: true
 ---
 
 <section data-background-color="#E6E6FA">  
 
 # 💜 **Storya**💜  
-Твой нежный гид по играм, книгам и фильмам 👾📚🎬  
+Твой гид по играм, книгам и фильмамё 👾📚🎬  
 
 </section>
 
+---
+<section data-background-color="#E6E6FA">  
+
+## **Оглавление**
+- 🌸 Что такое **Storya**? 
+- 🦄 Как это работает?  
+- 🆓 Бесплатный и Pro-планы 
+- 💜Почему **Storya**?  
+- 📊 Наши технологии
+- 🪷 Истории пользователей  
+- 📱 Простой и стильный интерфейс  
+- 🌟 Присоединяйся к **Storya**!  
+
+</section>
 ---
 
 <section data-background-color="#F9F6FF">  
@@ -44,10 +58,10 @@ slideNumber: false
 
 ## 🆓 Бесплатный и Pro-планы  
 
-### Бесплатный план:  
+### **Бесплатный** план:  
 - Базовые рекомендации по твоим интересам.  
 
-### Pro-план за $1 в месяц:  
+### **Pro**-план за $1 в месяц:  
 - 🤖 Искусственный интеллект для глубокого анализа.  
 - 🌟 Учёт предпочтений других пользователей. 
 
@@ -112,8 +126,7 @@ slideNumber: false
 
 <section data-background-color="#F9F6FF">  
 
-# 🛸 Спасибо за внимание!  
-## 📧 Контакты  
+# 🛸 Спасибо за внимание!    
 (здесь будут контакты)  
 
 </section>
