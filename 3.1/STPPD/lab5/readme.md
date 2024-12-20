@@ -9,3 +9,4 @@
 - scr: [ФАЙЛ](files/srs.md)
 - Godoc: [ССЫЛКА](https://pkg.go.dev/github.com/webbsalad/tetris)
 - Latex: [ССЫЛКА](https://www.overleaf.com/project/676591221c704173a187d1de)
+- License: [ССЫЛКА](https://github.com/webbsalad/tetris/blob/main/LICENSE)
