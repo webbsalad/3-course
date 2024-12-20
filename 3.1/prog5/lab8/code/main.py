@@ -1,94 +1,51 @@
-import os
-import matplotlib.pyplot as plt
+import requests
+import json
 import pandas as pd
-from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
 from dotenv import load_dotenv
-from io import StringIO
+import os
 
 load_dotenv()
 
-def getweather():
-    import json
-    import requests
-    from datetime import datetime, timedelta
-
-    city, lat, lon = "Saint Petersburg, RU", 59.57, 30.19
-
-    api_key = os.getenv('OPENWEATHER_API_KEY')
-    if not api_key:
-        api_key = input('Введите ваш API ключ OpenWeatherMap: ')
-        with open('.env', 'a') as f:
-            f.write(f'\nOPENWEATHER_API_KEY={api_key}')
-        load_dotenv() 
-
-    current_time = datetime.now()
-    result = {
-        'city': city,
-        'temps': []
-    }
-
-    for i in range(5):
-        day_time = current_time - timedelta(days=i+1)
-        dt = int(day_time.replace(hour=12, minute=0, second=0).timestamp())
-
-        url = 'https://api.openweathermap.org/data/2.5/onecall/timemachine'
-        params = {
-            'lat': lat,
-            'lon': lon,
-            'dt': dt,
-            'appid': api_key,
-            'units': 'metric',
-            'lang': 'ru'
+def get_weather_data(api_key, lat, lon):
+    url = f"https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&units=metric&appid={api_key}"
+    response = requests.get(url)
+    if response.status_code != 200:
+        print("Ошибка получения данных:", response.json())
+        return None
+    data = response.json()
+    weather_data = [
+        {
+            "datetime": item["dt_txt"],
+            "temperature": item["main"]["temp"]
         }
+        for item in data["list"]
+    ]
+    return weather_data
 
-        req = requests.get(url, params=params)
+def visualize_weather_data(weather_df):
+    weather_df["datetime"] = pd.to_datetime(weather_df["datetime"])
+    plt.figure(figsize=(12, 6))
+    plt.scatter(weather_df["datetime"], weather_df["temperature"], alpha=0.7)
+    plt.title("Температура за последние дни")
+    plt.xlabel("Дата и время")
+    plt.ylabel("Температура (°C)")
+    plt.xticks(rotation=45)
+    plt.grid()
+    plt.show()
+    plt.figure(figsize=(6, 8))
+    plt.boxplot(weather_df["temperature"], vert=True, patch_artist=True)
+    plt.title("Диаграмма температур (boxplot)")
+    plt.ylabel("Температура (°C)")
+    plt.grid()
+    plt.show()
 
-        if req.status_code != 200:
-            print(f"Ошибка при запросе данных за {day_time.strftime('%Y-%m-%d')}: {req.status_code}")
-            print(req.text)
-            continue
+api_key = os.getenv("API_KEY")
+lat = 59.57
+lon = 30.19
 
-        req_obj = req.json()
-
-        for hour_data in req_obj['hourly']:
-            result['temps'].append({
-                'dt': str(hour_data['dt']),
-                'temp': str(hour_data['temp'])
-            })
-
-    return json.dumps(result)
-
-weather_data_json = getweather()
-
-def visualise_data(json_data=''):
-    if json_data:
-        import matplotlib.pyplot as plt
-        import pandas as pd
-        from datetime import datetime
-        from io import StringIO
-
-        data = pd.read_json(StringIO(json_data))
-        city_name = data['city']
-
-        dates = [datetime.fromtimestamp(int(d['dt'])) for d in data['temps']]
-        temps = [float(t['temp']) for t in data['temps']]
-
-        df = pd.DataFrame({'Дата и время': dates, 'Температура': temps})
-
-        plt.figure(figsize=(12, 6))
-        plt.scatter(df['Дата и время'], df['Температура'], color='blue')
-        plt.title(f'Температура в {city_name} за последние 5 дней')
-        plt.xlabel('Дата и время')
-        plt.ylabel('Температура (°C)')
-        plt.xticks(rotation=45)
-        plt.grid(True)
-        plt.show()
-
-        plt.figure(figsize=(6, 8))
-        plt.boxplot(df['Температура'], vert=True, patch_artist=True)
-        plt.title('Распределение температур за последние 5 дней')
-        plt.ylabel('Температура (°C)')
-        plt.grid(True)
-        plt.show()
-
-visualise_data(weather_data_json)
+weather_data = get_weather_data(api_key, lat, lon)
+if weather_data:
+    weather_df = pd.DataFrame(weather_data)
+    print(weather_df.head())
+    visualize_weather_data(weather_df)
