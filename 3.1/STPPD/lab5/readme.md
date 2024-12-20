@@ -2,7 +2,8 @@
 
 
 - Репозиторий с игрой [ССЫЛКА](https://github.com/webbsalad/tetris)
-	
+
+- readme: [ССЫЛКА](https://github.com/webbsalad/tetris/blob/main/README.md)
 - gdd: [ФАЙЛ](files/gdd.md)
 - sdd: [ФАЙЛ](files/sdd.md)
 - scr: [ФАЙЛ](files/srs.md)
