@@ -1,4 +1,4 @@
-- лого - [logo](storya.webp)
+- лого - ![logo](logo.svg)
 - шаблон - [template](template.md)
 - презентация - [presentation](presentation.md)
 - текст для презентаци - [text](text.md)
