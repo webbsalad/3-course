@@ -1,8 +1,12 @@
 .obsidian
 venv
 main.go
+go.sum
+go.mod
+main
 3.1/prog5/lab2.2/code/.env
 3.1/prog5/lab9/code/myenv
 3.1/prog5/lab9/code/.env
 3.1/prog5/lab8/code/.env
 **/.DS_Store
+trash
