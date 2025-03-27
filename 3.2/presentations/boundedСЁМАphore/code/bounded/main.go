@@ -4,60 +4,71 @@ import (
 	"fmt"
 	"sync"
 	"time"
+
+	"github.com/google/uuid"
 )
 
+type token struct {
+	id string
+}
+
 type BoundedSemaphore struct {
-	tokens chan struct{}
+	tokens chan token
 	mu     sync.Mutex
-	held   int
+	held   map[string]struct{}
 }
 
 func NewBoundedSemaphore(max int) *BoundedSemaphore {
 	return &BoundedSemaphore{
-		tokens: make(chan struct{}, max),
+		tokens: make(chan token, max),
+		held:   make(map[string]struct{}),
 	}
 }
 
-func (b *BoundedSemaphore) Acquire() {
-	b.tokens <- struct{}{}
+func (b *BoundedSemaphore) Acquire() token {
+	t := token{id: uuid.New().String()}
+	b.tokens <- t
+
 	b.mu.Lock()
-	b.held++
+	b.held[t.id] = struct{}{}
 	b.mu.Unlock()
+
+	return t
 }
 
-func (b *BoundedSemaphore) Release() {
+func (b *BoundedSemaphore) Release(t token) {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 
-	if b.held <= 0 {
-		panic("semaphore release without acquire")
+	if _, ok := b.held[t.id]; !ok {
+		panic("semaphore release without valid acquire")
 	}
 
-	b.held--
-	<-b.tokens
+	delete(b.held, t.id)
 
+	select {
+	case <-b.tokens:
+	default:
+		panic("inconsistent state: no token to release")
+	}
 }
 
 func worker(id int, sem *BoundedSemaphore, wg *sync.WaitGroup) {
 	defer wg.Done()
 
-	sem.Acquire()
+	t := sem.Acquire()
 
 	fmt.Printf("Worker %d started\n", id)
 	time.Sleep(1 * time.Second) // Имитация работы
 	fmt.Printf("Worker %d finished\n", id)
 
-	sem.Release()
+	sem.Release(t)
 
-	if id%2 == 0 {
-		fmt.Printf("Worker %d trying to release AGAIN (extra)\n", id)
-		sem.Release()
-	}
 }
 
 func main() {
 	const (
-		totalWorkers  = 10
+		totalWorkers  = 10000
 		maxConcurrent = 2
 	)
 

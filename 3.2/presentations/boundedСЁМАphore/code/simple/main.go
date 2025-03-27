@@ -33,11 +33,10 @@ func worker(id int, sem *SimpleSemaphore, wg *sync.WaitGroup) {
 	fmt.Printf("Worker %d finished\n", id)
 
 	sem.Release()
-
 	if id == 1 {
-		fmt.Printf("Worker %d releasing (extra)\n", id)
 		sem.Release()
 	}
+
 }
 
 func main() {

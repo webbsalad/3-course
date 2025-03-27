@@ -3,11 +3,11 @@ transition: fade
 theme: solarized
 highlightTheme: github
 progress: true
-controls: true
+controls: false
 backgroundTransition: fade
 slideNumber: true
-height: "1000"
-width: "2000"
+height: "700"
+width: "1000"
 ---
 
 
