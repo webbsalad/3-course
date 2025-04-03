@@ -11,7 +11,7 @@ width: "1000"
 ---
 
 
-# **Bounded Semaphore**  
+# **BoundedSemaphore**  
 
 ---
 ### **Что такое семафор?**
@@ -20,7 +20,7 @@ width: "1000"
 
 ---
 
-### **Bounded Semaphore**
+### **BoundedSemaphore**
 
  ✅ Контроль за состоянием  
  ⚠️ Panic/Exception/ValueError
@@ -40,7 +40,7 @@ width: "1000"
 
 ---
 
-### **Псевдокод: bounded semaphore**
+### **Псевдокод: boundedsemaphore**
 
 ```
 Функция Acquire:

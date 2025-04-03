@@ -63,12 +63,13 @@ func worker(id int, sem *BoundedSemaphore, wg *sync.WaitGroup) {
 	fmt.Printf("Worker %d finished\n", id)
 
 	sem.Release(t)
+	sem.Release(t)
 
 }
 
 func main() {
 	const (
-		totalWorkers  = 10000
+		totalWorkers  = 1000
 		maxConcurrent = 2
 	)
 

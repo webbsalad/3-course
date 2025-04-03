@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"sync"
-	"time"
 )
 
 type SimpleSemaphore struct {
@@ -29,11 +28,12 @@ func worker(id int, sem *SimpleSemaphore, wg *sync.WaitGroup) {
 
 	sem.Acquire()
 	fmt.Printf("Worker %d started\n", id)
-	time.Sleep(1 * time.Second) // Имитация работы
-	fmt.Printf("Worker %d finished\n", id)
+	//time.Sleep(1 * time.Second) // Имитация работы
 
 	sem.Release()
+
 	if id == 1 {
+		fmt.Printf("extra: %d\n", id)
 		sem.Release()
 	}
 
@@ -41,7 +41,7 @@ func worker(id int, sem *SimpleSemaphore, wg *sync.WaitGroup) {
 
 func main() {
 	const (
-		totalWorkers  = 10
+		totalWorkers  = 10000
 		maxConcurrent = 2
 	)
 
