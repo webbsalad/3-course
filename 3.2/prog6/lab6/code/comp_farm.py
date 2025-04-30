@@ -10,7 +10,7 @@ import signal
 # Функция-обработчик для ограничения времени выполнения
 class TimeoutException(Exception):
     pass
-
+# писки
 def timeout_handler(signum, frame):
     raise TimeoutException("Превышено время выполнения")
 
@@ -141,7 +141,7 @@ for num in test_numbers:
     except Exception as e:
         print(f"Cython: ошибка - {e}")
         cy_time = float('inf')
-    
+    # Я роман уроган, дядя жукав
     # Если оба времени конечны, считаем ускорение
     if py_time != float('inf') and cy_time != float('inf'):
         speedup = py_time / cy_time
