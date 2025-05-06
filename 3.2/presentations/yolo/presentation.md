@@ -6,7 +6,7 @@ progress: true
 controls: false
 backgroundTransition: fade
 slideNumber: true
-height: "900"
+height: "1000"
 width: "1000"
 ---
 
@@ -18,7 +18,7 @@ width: "1000"
 		- ###### developed with obsidian:
 			- ###### developed on **Arch Linux, Ubuntu**, ~windows~, MacOS
 				- ###### streamed by internet:
-Суворов Роман, Гневнов Артем, Адаминко  **`С.С.`**
+Суворов Роман, Гневнов Артем, Адаминко  **`С.С.`**, 
 
 
 ---
@@ -35,6 +35,9 @@ width: "1000"
 
 ![](../../../imagepresentation.png)
 
+---
+
+![](../../../imagepresentation-1.png)
 ---
 
 ## Короткая история версий
