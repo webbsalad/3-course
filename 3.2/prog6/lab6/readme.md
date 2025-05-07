@@ -21,3 +21,4 @@ Cython: 1.82e-01 секунд
 ![](images/imagereadme.png)
 
 ![](images/imagereadme-1.png)
+
