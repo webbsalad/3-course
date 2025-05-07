@@ -27,26 +27,19 @@ def is_perfect_square(n):
 def fermat_factorization(N):
     """Разложение числа N на множители методом Ферма."""
     if N % 2 == 0:
-        return 2, N // 2  # Если N четное, делим на 2
+        return 2, N // 2  
 
-    x = math.isqrt(N) + 1  # Начинаем с ближайшего целого числа к √N
+    x = math.isqrt(N) + 1  
     while True:
         y_squared = x * x - N
         if is_perfect_square(y_squared):
             y = int(math.isqrt(y_squared))
-            return (x - y, x + y)  # Возвращаем найденные множители
-        x += 1  # Увеличиваем x
+            return (x - y, x + y)  
+        x += 1  
 
 
-# Пример использования
 if __name__ == '__main__':
-    # TEST_LST = [101, 9973, 104729, 101909, 609133, 1300039, 9999991, 99999959, 99999971, 3000009, 700000133,
-    #             61335395416403926747]
-    #
-    # res = [fermat_factorization(i) for i in TEST_LST]
-    # print(res)
     time_res = timeit.repeat("res = [fermat_factorization(i) for i in TEST_LST];",
                   setup='import math; from main import is_perfect_square; from main import fermat_factorization; TEST_LST = [101, 9973, 104729, 101909, 609133, 1300039, 9999991, 99999959, 99999971, 3000009, 700000133, 61335395416403926747]',
                   number=10, repeat=1)
     print(time_res)
-# print(f"Множители числа {N}: {factors}")
