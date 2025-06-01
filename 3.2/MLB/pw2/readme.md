@@ -1,1 +1,1 @@
--
+[отчет](code/student.ipynb)
