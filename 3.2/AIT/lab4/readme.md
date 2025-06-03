@@ -1,6 +1,6 @@
-код приложения: [ссылка](code/main.go)
+код приложения: [тык](code/main.go)
 
-код докерфайла: [ссылка](code/dockerfile)
+код докерфайла: [тык](code/dockerfile)
 
 билдим docker image локально
 ![](images/imagereadme.png)
@@ -23,3 +23,5 @@
 
 демонстрация post 
 ![](images/imagereadme-6.png)
+
+ссылка на docker hub: [тык](https://hub.docker.com/repository/docker/websalad/postavtezachet/general)
