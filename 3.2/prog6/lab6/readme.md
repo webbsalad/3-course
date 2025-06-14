@@ -18,7 +18,7 @@ Cython: 1.82e-01 секунд
 ```
 
 
-![](3.2/prog6/lab6/images/imagereadme.png)
+![](images/imagereadme.png)
 
-![](3.2/prog6/lab6/images/imagereadme-1.png)
+![](images/imagereadme-1.png)
 
