@@ -30,32 +30,32 @@ SCORM (_Sharable Content Object Reference Model_) — это модель для
 
 ### **Рассмотрим работу**:
 #### выбор шаблона задания:
-![](images/imagereadme.png)
+![](3.2/FCEL/lab2/images/imagereadme.png)
 
 #### интерфейс создания задания:
-![](images/imagereadme-1.png)
+![](3.2/FCEL/lab2/images/imagereadme-1.png)
 
 ### пройдемся по всем параметрам:
 - выбор названия задания:
-  ![](images/imagereadme-4.png)
+  ![](3.2/FCEL/lab2/images/imagereadme-4.png)
 
 -  описание задания:
-![](images/imagereadme-5.png)
+![](3.2/FCEL/lab2/images/imagereadme-5.png)
 - вступление:
-![](images/imagereadme-6.png)
+![](3.2/FCEL/lab2/images/imagereadme-6.png)
 - вопросы:
-![](images/imagereadme-7.png)
+![](3.2/FCEL/lab2/images/imagereadme-7.png)
 
 - некоторые другие настройки:
-![](images/imagereadme-8.png)
+![](3.2/FCEL/lab2/images/imagereadme-8.png)
 
 это пример создания одного типа задания (остальные задания создаются аналогично)
 
 ## запустим наш тест:
-![](images/imagereadme-9.png)
+![](3.2/FCEL/lab2/images/imagereadme-9.png)
 
-![](images/imagereadme-10.png)
-![](images/imagereadme-11.png)
+![](3.2/FCEL/lab2/images/imagereadme-10.png)
+![](3.2/FCEL/lab2/images/imagereadme-11.png)
 
 
 также можно создавать тест из нескольких типов заданий и считать колличество ответов

@@ -1,11 +1,11 @@
 с доменом 
-![](images/imagereadme.png)
+![](3.2/AIT/lab3/images/imagereadme.png)
 
 установка cerbot 
-![](images/imagereadme-1.png)
+![](3.2/AIT/lab3/images/imagereadme-1.png)
 
 настройка
-![](images/imagereadme-3.png)
+![](3.2/AIT/lab3/images/imagereadme-3.png)
 
 работает по https
-![](images/imagereadme-2.png)
+![](3.2/AIT/lab3/images/imagereadme-2.png)
