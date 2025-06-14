@@ -1,0 +1,20 @@
+services:
+  go-ping-pong-instance-1:
+    image: websalad/go-ping-pong-service:latest
+    container_name: go-ping-pong-1
+    environment:
+      - APP_PORT=8080
+      - PONG_MESSAGE=Greetings from Go App Instance 1!
+    ports:
+      - "8091:8080"
+    restart: always
+
+  go-ping-pong-instance-2:
+    image: websalad/go-ping-pong-service:latest
+    container_name: go-ping-pong-2
+    environment:
+      - APP_PORT=8080
+      - PONG_MESSAGE=Hello from Go App Instance 2!
+    ports:
+      - "8092:8080"
+    restart: always
