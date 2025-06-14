@@ -1,6 +1,12 @@
+version: "3.8"
+
 services:
+
   go-ping-pong-instance-1:
-    image: websalad/go-ping-pong-service:latest
+    build:
+      context: ./1
+      dockerfile: Dockerfile
+    image: websalad/go-ping-pong-service:instance1
     container_name: go-ping-pong-1
     environment:
       - APP_PORT=8080
@@ -10,7 +16,10 @@ services:
     restart: always
 
   go-ping-pong-instance-2:
-    image: websalad/go-ping-pong-service:latest
+    build:
+      context: ./2
+      dockerfile: Dockerfile
+    image: websalad/go-ping-pong-service:instance2
     container_name: go-ping-pong-2
     environment:
       - APP_PORT=8080
