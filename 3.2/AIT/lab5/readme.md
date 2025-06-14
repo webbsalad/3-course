@@ -1,10 +1,10 @@
-приложения
+приложения [первое](code/1/main.go) и [второе](code/2/main.go)
 ![](images/imagereadme.png)
 
-dockerfile
+dockerfile [первый](code/1/dockerfile) и [второй](code/2/dockerfile)
 ![](images/imagereadme-1.png)
 
-docker-compose
+docker-compose [тык](code/docker-compose.yaml)
 ![](images/imagereadme-3.png)
 
 билд
@@ -27,6 +27,7 @@ docker compose на сервере
 ![](images/imagereadme-9.png)
 
 
-ответы от приложения
+ответы от приложения [тык](http://postavtezachet.ru/service1/)
 ![](images/imagereadme-10.png)
+ [тык](http://postavtezachet.ru/service2/)
 ![](images/imagereadme-11.png)
