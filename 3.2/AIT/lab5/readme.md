@@ -1,8 +1,8 @@
 приложения
-![](imagereadme.png)
+![](images/imagereadme.png)
 
 dockerfile
-![](imagereadme-1.png)
+![](images/imagereadme-1.png)
 
 docker-compose
 ![](images/imagereadme-3.png)

@@ -1,8 +1,8 @@
 создание подключение и т д
-![](imagereadme.png)
+![](../../AIT/lab5/images/imagereadme%201.png)
 
-![](imagereadme-1.png)
-![](imagereadme-2.png)
+![](../../AIT/lab5/images/imagereadme-1%201.png)
+![](../../AIT/lab5/images/imagereadme-2%201.png)
 
 датасет со связью
 ![](images/imagereadme-3.png)
