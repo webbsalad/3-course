@@ -27,7 +27,6 @@ docker compose на сервере
 ![](images/imagereadme-9.png)
 
 
-ответы от приложения [тык](http://postavtezachet.ru/service1/)
+ответы от приложения
 ![](images/imagereadme-10.png)
- [тык](http://postavtezachet.ru/service2/)
 ![](images/imagereadme-11.png)
