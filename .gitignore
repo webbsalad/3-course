@@ -1,6 +1,5 @@
 .obsidian
 venv
-/main.go
 /go.sum
 /go.mod
 /main
