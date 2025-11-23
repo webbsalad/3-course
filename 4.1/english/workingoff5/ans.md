@@ -86,7 +86,6 @@ My worst interview was a technical interview for Avito. It was my very first tec
 
 # Video The future of work is here:
 
-
 1. What does the word resume mean?
     > It comes from a French word that means "to sum up."
    
