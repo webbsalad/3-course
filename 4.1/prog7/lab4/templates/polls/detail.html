@@ -1,0 +1,15 @@
+{% extends 'polls/base.html' %}
+{% block title %}{{ object.question_text }}{% endblock %}
+{% block content %}
+  <h1>{{ object.question_text }}</h1>
+  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+  <form method="post" action="{% url 'polls:vote' object.pk %}">
+    {% csrf_token %}
+    {% for c in object.choices.all %}
+      <div>
+        <label><input type="radio" name="choice" value="{{ c.pk }}"> {{ c.choice_text }}</label>
+      </div>
+    {% endfor %}
+    <button type="submit">Голосовать</button>
+  </form>
+{% endblock %}

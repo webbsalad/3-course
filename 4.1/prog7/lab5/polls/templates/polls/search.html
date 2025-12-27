@@ -1,0 +1,291 @@
+{% extends 'polls/base.html' %}
+{% block title %}Поиск и Аналитика голосований{% endblock %}
+
+{% block content %}
+<div class="search-container">
+    <h1>Поиск и Аналитика голосований</h1>
+    
+    <!-- Форма поиска -->
+    <div class="search-form">
+        <input type="text" id="search-query" placeholder="Поиск по тексту вопроса или вариантам ответа...">
+        <input type="date" id="start-date" placeholder="Дата начала">
+        <input type="date" id="end-date" placeholder="Дата окончания">
+        <select id="sort-by">
+            <option value="pub_date">По дате</option>
+            <option value="popularity">По популярности</option>
+            <option value="title">По названию</option>
+        </select>
+        <button onclick="searchPolls()">Поиск</button>
+    </div>
+    
+    <!-- Результаты поиска -->
+    <div class="search-results">
+        <div class="results-list">
+            <h2>Результаты поиска</h2>
+            <div id="results-container">
+                <p>Введите поисковый запрос для начала поиска</p>
+            </div>
+        </div>
+        
+        <!-- Статистика -->
+        <div class="stats-panel">
+            <h2>Статистика</h2>
+            <div id="stats-container">
+                <p>Выберите голосование для просмотра статистики</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.search-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.search-form input, .search-form select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-form input[type="text"] {
+    flex: 2;
+    min-width: 300px;
+}
+
+.search-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.results-list {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.stats-panel {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.poll-item {
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.poll-item:hover {
+    background-color: #f0f0f0;
+}
+
+.poll-item.selected {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+}
+
+.poll-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.poll-meta {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.stats-content {
+    margin-top: 20px;
+}
+
+.chart-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.chart-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.loading {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .search-results {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-form {
+        flex-direction: column;
+    }
+    
+    .search-form input[type="text"] {
+        min-width: auto;
+    }
+}
+</style>
+
+<script>
+let selectedPollId = null;
+
+function searchPolls() {
+    const query = document.getElementById('search-query').value;
+    const startDate = document.getElementById('start-date').value;
+    const endDate = document.getElementById('end-date').value;
+    const sortBy = document.getElementById('sort-by').value;
+    
+    const params = new URLSearchParams({
+        q: query,
+        start_date: startDate,
+        end_date: endDate,
+        sort_by: sortBy
+    });
+    
+    document.getElementById('results-container').innerHTML = '<div class="loading">Поиск...</div>';
+    
+    fetch(`/search/api/?${params}`)
+        .then(response => response.json())
+        .then(data => {
+            displayResults(data.results);
+        })
+        .catch(error => {
+            console.error('Ошибка поиска:', error);
+            document.getElementById('results-container').innerHTML = '<p>Ошибка при выполнении поиска</p>';
+        });
+}
+
+function displayResults(results) {
+    const container = document.getElementById('results-container');
+    
+    if (results.length === 0) {
+        container.innerHTML = '<p>Голосования не найдены</p>';
+        return;
+    }
+    
+    container.innerHTML = results.map(poll => `
+        <div class="poll-item" onclick="selectPoll(${poll.id})" data-poll-id="${poll.id}">
+            <div class="poll-title">${poll.question_text}</div>
+            <div class="poll-meta">
+                Дата: ${poll.pub_date} | 
+                Автор: ${poll.author} | 
+                Голосов: ${poll.total_votes} | 
+                Вариантов: ${poll.choices_count}
+            </div>
+        </div>
+    `).join('');
+}
+
+function selectPoll(pollId) {
+    // Убираем выделение с предыдущего элемента
+    document.querySelectorAll('.poll-item').forEach(item => {
+        item.classList.remove('selected');
+    });
+    
+    // Выделяем выбранный элемент
+    document.querySelector(`[data-poll-id="${pollId}"]`).classList.add('selected');
+    
+    selectedPollId = pollId;
+    loadPollStats(pollId);
+}
+
+function loadPollStats(pollId) {
+    document.getElementById('stats-container').innerHTML = '<div class="loading">Загрузка статистики...</div>';
+    
+    // Загружаем детальную статистику
+    fetch(`/analytics/api/questions/${pollId}/detailed_stats/`)
+        .then(response => response.json())
+        .then(data => {
+            displayStats(data);
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки статистики:', error);
+            document.getElementById('stats-container').innerHTML = '<p>Ошибка загрузки статистики</p>';
+        });
+}
+
+function displayStats(data) {
+    const container = document.getElementById('stats-container');
+    
+    let html = `
+        <h3>${data.question_text}</h3>
+        <p><strong>Дата:</strong> ${new Date(data.pub_date).toLocaleString()}</p>
+        <p><strong>Всего голосов:</strong> ${data.total_votes}</p>
+        
+        <h4>Результаты:</h4>
+        <ul>
+    `;
+    
+    data.choice_percentages.forEach(choice => {
+        html += `
+            <li>
+                ${choice.choice_text}: ${choice.votes} голосов (${choice.percentage}%)
+            </li>
+        `;
+    });
+    
+    html += '</ul>';
+    
+    // Добавляем кнопки для диаграмм
+    html += `
+        <div class="chart-controls">
+            <button onclick="loadChart('bar')">Столбчатая диаграмма</button>
+            <button onclick="loadChart('pie')">Круговая диаграмма</button>
+        </div>
+        <div id="chart-container" class="chart-container"></div>
+    `;
+    
+    container.innerHTML = html;
+}
+
+function loadChart(chartType) {
+    if (!selectedPollId) return;
+    
+    const chartContainer = document.getElementById('chart-container');
+    chartContainer.innerHTML = '<div class="loading">Генерация диаграммы...</div>';
+    
+    fetch(`/analytics/api/questions/${selectedPollId}/chart/?type=${chartType}`)
+        .then(response => response.json())
+        .then(data => {
+            if (chartType === 'bar' && data.image_base64) {
+                chartContainer.innerHTML = `
+                    <img src="data:image/png;base64,${data.image_base64}" alt="Диаграмма">
+                `;
+            } else if (chartType === 'pie' && data.chart_html) {
+                chartContainer.innerHTML = data.chart_html;
+            } else {
+                chartContainer.innerHTML = '<p>Ошибка генерации диаграммы</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки диаграммы:', error);
+            chartContainer.innerHTML = '<p>Ошибка загрузки диаграммы</p>';
+        });
+}
+
+// Поиск при нажатии Enter
+document.getElementById('search-query').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        searchPolls();
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% load static %}
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Polls Analytics{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+  </head>
+  <body>
+    <nav>
+      <a href="{% url 'polls:index' %}">Опросы</a>
+      <a href="{% url 'polls:search' %}">Поиск и Аналитика</a>
+    </nav>
+    {% block content %}{% endblock %}
+  </body>
+  </html>
