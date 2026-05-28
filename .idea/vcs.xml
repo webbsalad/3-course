@@ -2,5 +2,10 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/2.1/вичмат/Comp_mathLW1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/2.2/Computational_Mathematics_LW1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/2.2/comp_pract/lab1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/2.2/db/DB-IW-2nd-year" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3.2/herzen-pract-2025" vcs="Git" />
   </component>
 </project>
